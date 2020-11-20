@@ -14,8 +14,8 @@
     - in inventory.py, update 
         - `PHONE` with your real number
         - `TRIAL_PHONE` with your twilio trial number
-        - `TWILIO-SID` with your twilio sid
-        - `TWILIO-TOKEN` with your twilio token
+        - `TWILIO_SID` with your twilio sid
+        - `TWILIO_TOKEN` with your twilio token
 6. run the damn thing
     `python inventory.py`
 
