@@ -2,7 +2,9 @@
 2. install pipenv
     `pip install pipenv`
 3. start a pipenv shell
-    `pipenv install --three`
+   
+   `pipenv install --three`
+    
     `pipenv shell`
 4. OPTIONAL - configure things
     - in a text editor, open inventory.py
