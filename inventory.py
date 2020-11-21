@@ -32,9 +32,11 @@ def check_inventory():
     r = requests.get(url)
     html_string = r.text
     soup = BeautifulSoup(html_string, 'lxml')
-    table = soup.find_all('table')[1]
-    if not table:
-        logging.info("site error, no inventory table returned")
+    try:
+        table = soup.find_all('table')[1]
+    except:
+	    logging.info("site error, no inventory table returned")
+	    return available
 
     for tr in table.find_all('tr')[1:]:
         td = [th.get_text(strip=True) for th in tr.find_all('th')]
