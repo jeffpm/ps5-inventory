@@ -13,7 +13,7 @@
 5. OPTIONAL - configure twilio for sms notifications
     - register a free twilio account - https://www.twilio.com/try-twilio
     - once registered, create a trial number from https://www.twilio.com/console
-    - in inventory.py, update 
+    - in `notifications/sms.py`, update 
         - `PHONE` with your real number
         - `TRIAL_PHONE` with your twilio trial number
         - `TWILIO_SID` with your twilio sid

@@ -3,24 +3,26 @@ import requests
 from bs4 import BeautifulSoup
 from time import sleep
 import logging
-from twilio.rest import Client
+from notifications import sms
+from notifications import audio
 
 ZIP = "23238"
 SKU = "207-43-0001"
 RANGE = "25"
 WAIT = 10
-PHONE = "+1<your-phone>"
-TRIAL_PHONE = "+1<your-trial-phone>"
-TWILIO_SID = "<your-twilio-sid>"
-TWILIO_TOKEN = "<your-twilio-token>"
+
 
 def main():
-    logging.basicConfig(format='%(asctime)s: %(message)s', level=logging.INFO, datefmt='%m/%d/%Y %I:%M:%S %p')
+    notifiers = []
+    notifiers.append(sms.Twilio())
+    notifiers.append(audio.Audio())
 
+    logging.basicConfig(format='%(asctime)s: %(message)s', level=logging.INFO, datefmt='%m/%d/%Y %I:%M:%S %p')
+    
     while True:
         inventory = check_inventory()
         if len(inventory) > 0:
-            notify(inventory)
+            notify(inventory, notifiers)
         else:
             logging.info("no stock found")
         sleep(WAIT)
@@ -44,23 +46,14 @@ def check_inventory():
             available.append(td)
     return available
 
-def notify(inventory):
+def notify(inventory, notifiers):
     print("STOCK FOUND:")
     for item in inventory:
         print(item)
 
-    account_sid = TWILIO_SID
-    auth_token = TWILIO_TOKEN
-    client = Client(account_sid, auth_token)
-    try:
-        message = client.messages \
-            .create(
-                    body="PS5 STOCK FOUND.",
-                    from_=TRIAL_PHONE,
-                    to=PHONE
-                )
-    except:
-        logging.info("couldn't send twilio message")
+    for notifier in notifiers:
+        notifier.notify()
+
 
 if __name__ == "__main__":
     main()
