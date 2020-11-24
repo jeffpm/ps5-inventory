@@ -1,6 +1,8 @@
 import logging
 from inventory import utils
 from bs4 import BeautifulSoup
+
+
 class BestBuy():
     def __init__(self):
         self.driver = utils.get_driver()
